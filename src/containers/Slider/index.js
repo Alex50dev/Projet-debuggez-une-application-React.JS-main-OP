@@ -8,40 +8,53 @@ const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
 
-  const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
-  );
+  // Vérifier et convertir correctement toutes les dates
+  const byDateAsc = (data?.focus || [])
+    .map(event => ({
+      ...event,
+      dateObj: new Date(event.date) // Convertir la date en objet Date
+    }))
+    .sort((a, b) => a.dateObj - b.dateObj); // Trier correctement du plus ancien au plus récent
 
-  const nextCard = () => {
-    setIndex((prevIndex) => (prevIndex < byDateDesc.length - 1 ? prevIndex + 1 : 0));
-  };
-
+  // Passer au slide suivant toutes les 5 secondes
   useEffect(() => {
-    const interval = setInterval(nextCard, 5000); // Défilement auto toutes les 5s
-    return () => clearInterval(interval); // Nettoyage du timer
-  }, [index, byDateDesc.length]);
+    const interval = setInterval(() => {
+      setIndex(prevIndex => (prevIndex + 1) % byDateAsc.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [byDateAsc.length]);
 
   return (
     <div className="SlideCardList">
-      {byDateDesc?.map((event, idx) => (
-        <div key={event.id} className={`SlideCard SlideCard--${index === idx ? "display" : "hide"}`}>
+      {byDateAsc.map((event, idx) => (
+        <div
+          key={event.title}
+          className={`SlideCard SlideCard--${index === idx ? "display" : "hide"}`}
+        >
           <img src={event.cover} alt={event.title} />
           <div className="SlideCard__descriptionContainer">
             <div className="SlideCard__description">
               <h3>{event.title}</h3>
               <p>{event.description}</p>
-              <div>{getMonth(new Date(event.date))}</div>
-            </div>
-          </div>
-          <div className="SlideCard__paginationContainer">
-            <div className="SlideCard__pagination">
-              {byDateDesc.map((_, radioIdx) => (
-                <input key={event.id || `radio-${radioIdx}`} type="radio" name="radio-button" checked={idx === radioIdx} readOnly />
-              ))}
+              <div>{getMonth(event.dateObj)}</div>
             </div>
           </div>
         </div>
       ))}
+
+      <div className="SlideCard__paginationContainer">
+        <div className="SlideCard__pagination">
+          {byDateAsc.map((event, radioIdx) => (
+            <input
+              key={event.title}
+              type="radio"
+              name="radio-button"
+              checked={index === radioIdx}
+              readOnly
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
