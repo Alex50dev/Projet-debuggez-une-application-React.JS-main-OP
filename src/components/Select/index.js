@@ -15,11 +15,13 @@ const Select = ({
 }) => {
   const [value, setValue] = useState();
   const [collapsed, setCollapsed] = useState(true);
+
   const changeValue = (newValue) => {
-    onChange();
-    setValue(newValue);
-    setCollapsed(newValue);
+    setValue(newValue);  // Met à jour la valeur sélectionnée
+    onChange(newValue);   // Passe la valeur sélectionnée au parent
+    setCollapsed(true);   // Referme le menu après une sélection
   };
+
   return (
     <div className={`SelectContainer ${type}`} data-testid="select-testid">
       {label && <div className="label">{label}</div>}
