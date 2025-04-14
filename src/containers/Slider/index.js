@@ -14,7 +14,6 @@ const Slider = () => {
       const dateObj = new Date(event.date);
       // Vérifier si la date est valide en utilisant Number.isNaN
       if (Number.isNaN(dateObj.getTime())) { // getTime() retourne NaN si la date est invalide
-        console.error(`Date invalide pour l'événement: ${event.title}`);
         return null; // Ignore cet événement si la date est invalide
       }
       return {
@@ -23,7 +22,7 @@ const Slider = () => {
       };
     })
     .filter(event => event !== null) // Enlever les événements avec des dates invalides
-    .sort((a, b) => a.dateObj - b.dateObj); // Trier correctement du plus ancien au plus récent
+    .sort((a, b) => b.dateObj - a.dateObj); // Correction : ordre décroissant
 
   // Passer au slide suivant toutes les 5 secondes
   useEffect(() => {
