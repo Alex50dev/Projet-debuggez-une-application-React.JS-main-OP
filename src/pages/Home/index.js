@@ -132,7 +132,7 @@ const Page = () => {
               imageSrc={last.cover || "/images/default.jpg"}
               imageAlt={last.title || "Image événement"}
               title={last.title || "Titre inconnu"}
-              date={last.date ? new Date(last.date) : new Date()}
+              date={new Date(last.date)}
               small
               label={last.type || "Événement"}
             />

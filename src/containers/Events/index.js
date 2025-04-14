@@ -49,11 +49,12 @@ const EventList = () => {
               <Modal key={event.id} Content={<ModalEvent event={event} />}>
                 {({ setIsOpened }) => (
                   <EventCard
-                    onClick={() => setIsOpened(true)}
-                    imageSrc={event.cover}
-                    title={event.title}
-                    date={new Date(event.date)}
-                    label={event.type}
+                  onClick={() => setIsOpened(true)}
+                  imageSrc={event.cover}
+                  title={event.title}
+                  label={event.type}
+                  periode={event.periode}
+                  date={new Date(event.date)} // ← ← ← AJOUTE CECI !
                   />
                 )}
               </Modal>
