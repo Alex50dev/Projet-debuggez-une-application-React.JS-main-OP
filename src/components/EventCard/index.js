@@ -9,7 +9,7 @@ const EventCard = ({
   title,
   label,
   small = false,
-  periode, // ✅ Ajouté ici
+  periode, //  Ajouté ici
   ...props
 }) => (
   <div
@@ -23,7 +23,7 @@ const EventCard = ({
     </div>
     <div className="EventCard__descriptionContainer">
       <div className="EventCard__title">{title}</div>
-      {/* ✅ Affiche le mois extrait de la période, sinon fallback sur getMonth(date) */}
+      {/*  Affiche le mois extrait de la période, sinon fallback sur getMonth(date) */}
       <div className="EventCard__month">
         {periode ? periode.split(" ").pop() : getMonth(date)}
       </div>
@@ -38,13 +38,13 @@ EventCard.propTypes = {
   title: PropTypes.string.isRequired,
   small: PropTypes.bool,
   label: PropTypes.string.isRequired,
-  periode: PropTypes.string, // ✅ Ajouté ici
+  periode: PropTypes.string, // Ajouté ici
 };
 
 EventCard.defaultProps = {
   imageAlt: "image",
   small: false,
-  periode: "", // ✅ Valeur par défaut
+  periode: "", // Valeur par défaut
 };
 
 export default EventCard;

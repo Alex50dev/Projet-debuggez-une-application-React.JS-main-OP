@@ -54,7 +54,7 @@ const EventList = () => {
                   title={event.title}
                   label={event.type}
                   periode={event.periode}
-                  date={new Date(event.date)} // ← ← ← AJOUTE CECI !
+                  date={new Date(event.date)} 
                   />
                 )}
               </Modal>

@@ -13,5 +13,5 @@ export const MONTHS = {
   12: "décembre",
 };
 
-// 🔥 Correction : ajout de +1 car getMonth() retourne un index de 0 à 11
+// Correction : ajout de +1 car getMonth() retourne un index de 0 à 11
 export const getMonth = (date) => MONTHS[date.getMonth() + 1] || "Mois inconnu";
